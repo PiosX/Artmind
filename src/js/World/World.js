@@ -3,7 +3,7 @@ import { createCamera } from "./components/camera.min.js";
 import { createCube } from "./components/cube.min.js";
 import { createScene } from "./components/scene.min.js";
 
-// import { createControls } from "./systems/controls.min.js";
+import { createControls } from "./systems/controls.min.js";
 import { createRenderer } from "./systems/renderer.min.js";
 import { Resizer } from "./systems/Resizer.min.js";
 import { Loop } from "./systems/Loop.min.js";
@@ -25,11 +25,8 @@ class World {
 		loop = new Loop(camera, scene, renderer);
 		container.append(renderer.domElement);
 
-		// this.mousePosX = 0;
-		// this.mousePosY = 0;
-		// this.paramsIntensify = 0.2;
-		// this.paramsEase = 0.08;
-		// this.initZ = this.camera.position.z;
+		const controls = createControls(camera, renderer.domElement);
+		loop.updatables.push(controls);
 
 		this.mouse = new Vector2();
 		this.target = new Vector2();
@@ -37,47 +34,31 @@ class World {
 			window.innerWidth / 2,
 			window.innerHeight / 2
 		);
+		cube.groups.forEach((item) => {
+			loop.updatables.push(target, item);
 
-		// const controls = createControls(camera, renderer.domElement);
+			target.tick = () => {
+				target.x = (1 - mouse.x) * 0.00015;
+				target.y = (-500 - mouse.y) * 0.00014;
+			};
+			item.tick = () => {
+				item.rotation.x += 0.05 * (target.y - item.rotation.x);
+				item.rotation.y += 0.05 * (target.x - item.rotation.y);
+			};
 
-		// this.cube = createCube();
-
-		loop.updatables.push(target, cube);
-
-		target.tick = () => {
-			target.x = (1 - mouse.x) * 0.00015;
-			target.y = (-500 - mouse.y) * 0.00014;
-		};
-		cube.tick = () => {
-			cube.rotation.x += 0.05 * (target.y - cube.rotation.x);
-			cube.rotation.y += 0.05 * (target.x - cube.rotation.y);
-		};
-
-		scene.add(cube);
-
-		// this.camParallax();
+			scene.add(item);
+		});
+		// scene.add(cube.groups[0]);
+		// scene.add(cube.groups[1]);
 
 		document.addEventListener("mousemove", this.onMouseMove, false);
 
 		const resizer = new Resizer(container, camera, renderer);
 	}
 
-	// camParallax() {
-	// 	window.addEventListener("mousemove", (e) => {
-	// 		this.mousePosX =
-	// 			(e.clientX - window.innerWidth / 2) * this.paramsIntensify;
-	// 		this.mousePosY =
-	// 			(e.clientY - window.innerHeight / 2) * this.paramsIntensify;
-
-	// 		this.camera.position.x +=
-	// 			(this.mousePosX - this.camera.position.x) * this.paramsEase;
-	// 		this.camera.position.y +=
-	// 			(this.mousePosY - this.camera.position.y) * this.paramsEase;
-	// 		this.camera.position.z +=
-	// 			(this.initZ - this.camera.position.z) * this.paramsEase;
-	// 		// this.camera.lookAt(0, 0, 900);
-	// 	});
-	// }
+	initPost() {
+		this.composer = new EffectComposer(renderer);
+	}
 
 	onMouseMove(event) {
 		mouse.x = event.clientX - windowHalf.x;
