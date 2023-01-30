@@ -14,7 +14,6 @@ class Resizer {
 
 		window.addEventListener("resize", () => {
 			// set the size again if a resize occurs
-			console.log("work");
 			setSize(container, camera, renderer, composer);
 			// perform any custom actions
 			this.onResize();

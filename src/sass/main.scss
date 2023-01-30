@@ -1,9 +1,29 @@
 @import "reset.scss";
+@import "responsive.scss";
 
 *,
 *::after,
 *::before {
 	box-sizing: border-box;
+}
+::-webkit-scrollbar {
+	width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+	background-color: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: #fff;
+	border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	background-color: rgba($color: #fff, $alpha: 0.2);
 }
 
 html {
@@ -51,15 +71,25 @@ body {
 	&__title {
 		font-size: 12rem;
 		margin-bottom: 1rem;
+		@include media("<=phone") {
+			font-size: 8.5rem;
+		}
 	}
 
 	&__x {
 		font-size: 4rem;
+		@include media("<=phone") {
+			font-size: 2.8rem;
+		}
 	}
 
 	&__subtitle {
 		font-size: 4rem;
 		margin-top: 2.8rem;
+		@include media("<=phone") {
+			font-size: 3.5rem;
+			margin-top: 2.5rem;
+		}
 	}
 }
 
@@ -79,11 +109,21 @@ body {
 			font-size: 6rem;
 			left: 50%;
 			top: 50%;
+			@include media("<=phone") {
+				font-size: 4rem;
+				left: 6rem;
+				top: 40%;
+			}
 		}
 		&--2 {
 			font-size: 6rem;
 			left: 50%;
 			top: 50%;
+			@include media("<=phone") {
+				font-size: 4rem;
+				left: 6rem;
+				top: 40%;
+			}
 		}
 		&__sub {
 			position: absolute;
@@ -92,16 +132,28 @@ body {
 				font-size: 2.6rem;
 				left: 2rem;
 				top: 30%;
+				@include media("<=phone") {
+					font-size: 2rem;
+					left: 1rem;
+				}
 			}
 			&--2 {
 				font-size: 2.6rem;
 				left: 50%;
 				top: 13%;
+				@include media("<=phone") {
+					font-size: 2rem;
+					left: 6rem;
+				}
 			}
 			&--3 {
 				font-size: 2.6rem;
 				right: 0.5rem;
 				top: 30%;
+				@include media("<=phone") {
+					font-size: 2rem;
+					right: 3.5rem;
+				}
 			}
 		}
 	}
@@ -111,11 +163,18 @@ body {
 	font-size: 7rem;
 	color: #fff;
 	z-index: 1;
+	@include media("<=phone") {
+		font-size: 4rem;
+	}
 
 	&__text {
 		position: absolute;
 		transform: translate(-50%, -50%);
 		top: 90%;
+		@include media("<=phone") {
+			margin-left: -4.5rem;
+			margin-top: 2rem;
+		}
 		&--1 {
 			left: 9.5rem;
 		}
@@ -149,7 +208,8 @@ body {
 .about__link {
 	position: absolute;
 	top: 6%;
-	right: 3rem;
+	left: 90%;
+	margin-right: 5%;
 	transform: translate(-50%, -50%);
 	color: #fff;
 	font-size: 4rem;
@@ -157,6 +217,10 @@ body {
 	z-index: 4;
 	padding: 1rem 2rem;
 	transition: border 0.5s;
+	@include media("<=phone") {
+		left: 80%;
+		font-size: 3rem;
+	}
 	&::before,
 	&::after {
 		transition: 0.3s;
@@ -260,4 +324,184 @@ body {
 	&--9 {
 		opacity: 0;
 	}
+}
+
+.about {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 90vw;
+	height: 100vh;
+	background: #000;
+	overflow: auto;
+	z-index: 30;
+	transform: translateX(100%);
+
+	&__close {
+		position: absolute;
+		left: 4rem;
+		display: inline-block;
+		font-size: 8rem;
+		font-weight: 200;
+		color: #fff;
+		transform-origin: center;
+		transform: rotate(45deg);
+		cursor: pointer;
+	}
+	&__mind {
+		text-align: right;
+		margin-right: 7rem;
+		margin-top: 7rem;
+		font-family: "Inter";
+		font-weight: 300;
+		font-size: 1.6rem;
+		color: #fff;
+		text-transform: uppercase;
+		@include media("<=phone") {
+			display: none;
+		}
+	}
+	&__line-row {
+		position: absolute;
+		top: 9%;
+		height: 1px;
+		width: 100%;
+		background-color: #fff;
+		opacity: 0.2;
+		@include media("<=phone") {
+			display: none;
+		}
+	}
+	&__line-column {
+		position: absolute;
+		top: 0;
+		left: 11.5rem;
+		height: 100%;
+		width: 1px;
+		background-color: #fff;
+		opacity: 0.2;
+		@include media("<=tablet") {
+			display: none;
+		}
+	}
+	&__title {
+		margin: 4% auto 0;
+		font-size: 8rem;
+		letter-spacing: 0.8rem;
+		width: 80%;
+		color: #fff;
+		text-align: center;
+		@include media("<=tablet") {
+			font-size: 6rem;
+		}
+		@include media("<=phone") {
+			margin-top: 10rem;
+			font-size: 2.5rem;
+		}
+	}
+	&__video {
+		display: block;
+		margin: 7rem auto 0;
+		width: 50%;
+		height: 50%;
+		border-radius: 15px;
+		@include media("<=phone") {
+			margin-top: 5rem;
+		}
+	}
+
+	&__subtitle {
+		margin-top: 15rem;
+		margin-left: 15rem;
+		font-family: "Inter";
+		font-weight: 300;
+		letter-spacing: 0.3rem;
+		font-size: 5rem;
+		color: #fff;
+		&--arrow {
+			font-size: 2rem;
+			opacity: 0.4;
+		}
+		@include media("<=tablet") {
+			margin-left: 3rem;
+		}
+		@include media("<=phone") {
+			margin-top: 8rem;
+			font-size: 1.6rem;
+		}
+	}
+
+	&__table {
+		font-size: 7.7rem;
+		margin: 8rem auto 0;
+		width: 90%;
+		@include media("<=tablet") {
+			font-size: 5.5rem;
+		}
+		@include media("<=phone") {
+			font-size: 2rem;
+		}
+		&__row {
+			position: relative;
+			border-bottom: 1px solid rgba($color: #fff, $alpha: 0.2);
+			&__img {
+				position: absolute;
+				display: none;
+				margin-top: -12rem;
+				right: 10%;
+				height: 40rem;
+				width: 60rem;
+				z-index: 1;
+				@include media("<=phone") {
+					width: 22.5rem;
+					height: 15rem;
+				}
+			}
+		}
+		&__data1 {
+			text-align: center;
+			color: #fff;
+			padding-bottom: 2rem;
+			padding-top: 2rem;
+		}
+		&__data2 {
+			color: #fff;
+			padding-left: 10%;
+		}
+	}
+	&__author {
+		position: relative;
+		top: 13rem;
+		left: 85%;
+		padding-bottom: 2rem;
+		text-align: right;
+		font-family: "Inter";
+		font-weight: 200;
+		font-size: 2.5rem;
+		color: #fff;
+		text-decoration: none;
+		line-height: 1rem;
+		@include media("<=tablet") {
+			left: 80%;
+		}
+		@include media("<=phone") {
+			font-size: 2rem;
+			left: 53%;
+		}
+	}
+	&__svg {
+		position: absolute;
+		top: -1rem;
+		left: 120%;
+		width: 5rem;
+		height: 5rem;
+		@include media("<=phone") {
+			width: 4rem;
+			height: 4rem;
+		}
+	}
+}
+
+.about__table__row:hover {
+	border-bottom: 2px solid white;
 }

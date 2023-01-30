@@ -41,6 +41,7 @@
 		"dat.gui": "^0.7.9",
 		"gsap": "^3.11.4",
 		"gulp-plumber": "^1.2.1",
+		"include-media": "^1.4.10",
 		"phaser": "^3.55.2",
 		"simple-input-events": "^2.0.0",
 		"three": "^0.128.0",

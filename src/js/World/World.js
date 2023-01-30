@@ -32,6 +32,11 @@ let logoMain = document.querySelectorAll(".logo__main");
 let sublogo = document.querySelectorAll(".logo__main__sub");
 let mask = document.querySelector(".mask");
 
+const collection = document.querySelectorAll(".about__table__row");
+const close = document.querySelector(".about__close");
+const about = document.querySelector(".about");
+const aboutBtn = document.querySelector(".about__link");
+
 class World {
 	constructor(container) {
 		renderer = createRenderer();
@@ -61,6 +66,7 @@ class World {
 
 		this.settings();
 		this.logoAnimations();
+		this.collectionEvent();
 	}
 
 	settings() {
@@ -78,6 +84,36 @@ class World {
 		});
 		mask.addEventListener("mousedown", this.settings.runAnimation);
 		this.gui.hide();
+	}
+
+	collectionEvent() {
+		collection.forEach((item) => {
+			item.addEventListener("mouseover", () => {
+				item.lastElementChild.lastElementChild.style.display = "block";
+			});
+			item.addEventListener("mouseout", () => {
+				item.lastElementChild.lastElementChild.style.display = "none";
+			});
+		});
+
+		close.addEventListener("mousedown", () => {
+			gsap.to(about, {
+				transform: "translateX(100%)",
+				duration: 1.3,
+			});
+		});
+		mask.addEventListener("mousedown", () => {
+			gsap.to(about, {
+				transform: "translateX(100%)",
+				duration: 1.3,
+			});
+		});
+		aboutBtn.addEventListener("mousedown", () => {
+			gsap.to(about, {
+				transform: "translateX(0)",
+				duration: 1.3,
+			});
+		});
 	}
 
 	runAnimation() {
@@ -363,8 +399,8 @@ class World {
 
 		renderer.setAnimationLoop(() => {
 			cube.groups.forEach((item) => {
-				target.x = (1 - mouse.x) * 0.00015;
-				target.y = (-500 - mouse.y) * 0.00015;
+				target.x = (1 - mouse.x) * 0.00013;
+				target.y = (-500 - mouse.y) * 0.00013;
 				item.rotation.x += 0.05 * (target.y - item.rotation.x);
 				item.rotation.y += 0.05 * (target.x - item.rotation.y);
 
